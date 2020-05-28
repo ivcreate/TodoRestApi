@@ -8,7 +8,7 @@ const server_1 = __importDefault(require("./server"));
 const port = 3000;
 if (cluster_1.default.isMaster) {
     const cpu_count = require('os').cpus().length;
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < cpu_count; i++) {
         cluster_1.default.schedulingPolicy = cluster_1.default.SCHED_NONE;
         cluster_1.default.fork();
     }

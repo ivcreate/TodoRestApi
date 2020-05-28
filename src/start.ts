@@ -8,7 +8,7 @@ if (cluster.isMaster) {
 
     const cpu_count = require('os').cpus().length;
 
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < cpu_count; i++) {
         cluster.schedulingPolicy = cluster.SCHED_NONE;
         cluster.fork();
     }
