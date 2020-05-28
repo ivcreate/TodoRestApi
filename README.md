@@ -4,7 +4,8 @@ This is a RestAPI for todo app. All listeners on localhost:3000.
 
 ## Installation
 ``` sh
-$ git clone
+$ git clone https://github.com/ivcreate/TodoRestApi
+$ cd TodoRestApi/
 $ npm install
 ```
 In the .env file register access to the pg database.

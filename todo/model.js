@@ -15,22 +15,18 @@ class TodoModel {
     }
     get(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.res = yield this.db_connect.query("SELECT * FROM todo WHERE id = $1 AND delete = 'f'", [id]);
-            return this.res.rows;
+            this.res = yield this.db_connect.query("SELECT create_user_id, assigned_user_id, title, text, update_at FROM todo WHERE id = $1 AND delete = 'f'", [id]);
+            return this.res.rows[0];
         });
     }
     insert(create_user_id, assigned_user_id, title, text) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.db_connect.connect()
-                .then(client => {
-                const add_at = new Date();
-                console.log([create_user_id, assigned_user_id, title, text, add_at, add_at]);
-                client.query(`INSERT INTO todo
-                (create_user_id, assigned_user_id, title, text, add_at, update_at)
-                VALUES 
-                ($1, $2, $3, $4, $5, $6)`, [create_user_id, assigned_user_id, title, text, add_at, add_at]);
-                client.release();
-            });
+            const add_at = new Date();
+            this.res = yield this.db_connect.query(`INSERT INTO todo
+        (create_user_id, assigned_user_id, title, text, add_at, update_at)
+        VALUES 
+        ($1, $2, $3, $4, $5, $6) RETURNING id`, [create_user_id, assigned_user_id, title, text, add_at, add_at]);
+            return this.res.rows[0].id;
         });
     }
     update(id, title, text) {
@@ -90,7 +86,6 @@ class TodoModel {
             }).finally(() => client.release());
         })
             .catch(err => {
-            console.log(err);
             throw err;
         });
     }

@@ -2,7 +2,7 @@ import express, {Application, Request, Response, NextFunction} from 'express';
 import body_parser from "body-parser"
 import Todo from "./todo/todo";
 import getUserGithub from './functions/siteRequest';
-import {writeAccessLog, writeErrorLog} from './functions/logs';
+import {writeAccessLog, writeErrorLog, checkLogsPath} from './functions/logs';
 
 function serverStart(port: number = 3000){
     const app: Application = express();
@@ -82,6 +82,7 @@ function serverStart(port: number = 3000){
     app.listen(port, () => {
         const todo = new Todo;
         todo.migration();
+        checkLogsPath();
     });
 
     

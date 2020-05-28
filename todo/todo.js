@@ -25,7 +25,10 @@ class Todo {
         return __awaiter(this, void 0, void 0, function* () {
             id = this.validNumber('id', id);
             const result = yield this.model.get(id);
-            return result;
+            if (result)
+                return result;
+            else
+                return { result: 'empty' };
         });
     }
     add(create_user_id, assigned_user_id, title, text) {
@@ -34,7 +37,8 @@ class Todo {
             assigned_user_id = this.validNumber('assigned_user_id', assigned_user_id);
             title = this.validText('title', title);
             text = this.validText('text', text);
-            yield this.model.insert(create_user_id, assigned_user_id, title, text);
+            const add_id = yield this.model.insert(create_user_id, assigned_user_id, title, text);
+            return add_id;
         });
     }
     update(id, title, text) {
