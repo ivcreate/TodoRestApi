@@ -82,7 +82,6 @@ function serverStart(port: number = 3000){
     app.listen(port, () => {
         const todo = new Todo;
         todo.migration();
-        checkLogsPath();
     });
 
     

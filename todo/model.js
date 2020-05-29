@@ -81,7 +81,7 @@ class TodoModel {
             return client
                 .query(table_add)
                 .catch(err => {
-                if (err.message.indexOf('already exists') === -1)
+                if (err.code !== "42P07")
                     throw err;
             }).finally(() => client.release());
         })

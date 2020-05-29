@@ -91,7 +91,6 @@ function serverStart(port = 3000) {
     app.listen(port, () => {
         const todo = new todo_1.default;
         todo.migration();
-        logs_1.checkLogsPath();
     });
 }
 exports.default = serverStart;

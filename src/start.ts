@@ -1,11 +1,14 @@
 import cluster from 'cluster';
 import server from './server';
+import {checkLogsPath} from './functions/logs';
 
 
 const port: number = 3000;
 
 if (cluster.isMaster) {
 
+    checkLogsPath();
+    
     const cpu_count = require('os').cpus().length;
 
     for (let i = 0; i < cpu_count; i++) {
